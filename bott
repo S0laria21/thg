@@ -1,0 +1,44 @@
+import discord
+import random
+import os
+from discord.ext import commands
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix = "$",intents=intents)
+
+papel=['si tienes periódicos o revistas viejas por ahí, puedes utilizarlos como material de embalaje para enviar artículos',
+       'si tienes periódicos o revistas viejas por ahí, puedes utilizarlos para proyectos de manualidades como esculturas de papel maché',
+       'El papel usado se puede triturar y utilizar como relleno para camas o almohadas para mascotas.',
+       'Convierte tu papel reciclado en pequeños cuadernos para tomar notas o dibuja']
+
+reciclaje=['Caneca Color blanco: Para depositar los residuos aprovechables como plástico, botellas, latas, vidrio, metales, papel y cartón.',
+           'Caneca Color negro: Para depositar residuos no aprovechables como el papel higiénico; servilletas, papeles y cartones contaminados con comida; papeles metalizados, entre otros',
+           'Caneca Color verde: Para depositar residuos orgánicos aprovechables como los restos de comida, desechos agrícolas etc.']
+
+@bot.event
+async def on_ready():
+    print(f'hemos iniciado sesion como {bott.user}')
+
+@bot.command()
+async def hola(ctx):
+    await ctx.send(f'Hola! cosas que te puedo mostrar: maneras de reutilizar un material($+ el material), ¿como poder utilizar de mejor manera las canecas de reciclaje?($+reciclar) y imagenes del medio ambiente porque son bonitas :3 ($+imagenes)')
+
+
+@bot.command()
+async def imagenes(ctx):
+    images_conta = random.choice(os.listdir("images_conta"))
+    with open(f'images/{images_conta}', 'rb') as f:
+        picture = discord.File(f)
+    await ctx.send(file=picture)
+
+@bot.command()
+async def papel(ctx):
+    papel = random.choice(papel)
+    await ctx.send(f'📝{papel}')
+
+@bot.command()
+async def reciclar(ctx):
+    reciclar = random.choice(reciclar) 
+    await ctx.send(f'🗑{reciclar}')
